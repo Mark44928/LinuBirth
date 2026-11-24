@@ -6,6 +6,8 @@
 
 **→ Live site: https://mark44928.github.io/LinuBirth/**
 
+<img src="docs/screenshot.png" width="760" alt="LinuBirth screenshot">
+
 The pretty useless countdown to Linus Torvalds' birthday (December 28). Cool human-looking visuals, a portrait of Linus, four drifting Tuxes, and a confetti party when the big day arrives.
 
 ## Share it
@@ -14,7 +16,7 @@ Spread the word — the site has a built-in share button (Web Share API, with a 
 
 - https://mark44928.github.io/LinuBirth/
 
-Social previews (Open Graph / Twitter cards) are configured, so links unfurl nicely with the Linus portrait.
+Social previews (Open Graph / Twitter cards) are configured, so links unfurl nicely with a screenshot of the site.
 
 ## Running locally
 
