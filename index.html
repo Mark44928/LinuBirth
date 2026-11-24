@@ -17,8 +17,10 @@
     background: #a7f3d0;
     background-image: radial-gradient(circle at 50% 40%, #86efac, #a7f3d0 55%, #bbf7d0);
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  svg { position: absolute; width: 0; height: 0; }
+  svg { position: absolute; width: 0; height: 0; shape-rendering: geometricPrecision; }
   .card {
     position: relative;
     transform: rotate(-1.2deg);
@@ -62,7 +64,7 @@
     transition: transform .4s ease;
   }
   .portrait:hover { transform: rotate(3deg) scale(1.03); }
-  .portrait img { display: block; width: 260px; height: auto; border-radius: 50%; }
+  .portrait img { display: block; width: 260px; height: auto; image-rendering: auto; border-radius: 50%; }
   .credit {
     font-size: 0.75rem;
     color: #558b2f;
@@ -109,6 +111,7 @@
   .tux {
     width: clamp(60px, 14vw, 110px);
     height: auto;
+    image-rendering: auto;
     filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.25));
     transform: rotate(-3deg);
     transition: transform 0.4s ease;
