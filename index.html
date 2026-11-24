@@ -165,6 +165,7 @@
   @keyframes drift { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-14px) rotate(4deg); } }
   .share {
     margin-top: 1rem;
+    margin-right: 0.5rem;
     font-family: 'Comic Neue', 'Comic Sans MS', system-ui, sans-serif;
     font-size: 1rem;
     cursor: pointer;
@@ -178,6 +179,7 @@
   }
   .share:hover { transform: rotate(-2deg) scale(1.05); }
   .share:active { transform: translateY(2px); box-shadow: none; }
+  #confetti-btn { background: #e53935; color: #fff; }
   canvas#confetti { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 10; }
 </style>
 </head>
@@ -210,6 +212,7 @@
     <img class="tux" src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Tux">
     <img class="tux" src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Tux">
   </div>
+  <button class="share" id="confetti-btn">🎉 Confetti</button>
   <button class="share" id="share">Share this site</button>
   <p class="credit" style="margin-top: 1.4rem;">Tux SVG: Larry Ewing &amp; The GIMP, via Wikimedia Commons (attribution only)</p>
 </main>
@@ -226,6 +229,9 @@
     var ctx = canvas.getContext('2d');
     var particles = [];
     var shareBtn = document.getElementById('share');
+    var confettiBtn = document.getElementById('confetti-btn');
+
+    confettiBtn.addEventListener('click', function () { burst(); confetti(); });
 
     shareBtn.addEventListener('click', function () {
       var data = { title: 'LinuBirth', text: 'The pretty useless countdown to Linus Torvalds\u2019 birthday.', url: location.href };
