@@ -24,3 +24,11 @@ Then open `http://localhost:8080`.
 Portrait of Linus Torvalds (December 2002) from Wikimedia Commons:
 https://commons.wikimedia.org/wiki/File:Linus_Torvalds.jpeg
 Licensed CC BY-SA 3.0 / GFDL.
+
+## Fonts
+
+Bundled in `assets/fonts/` (woff2, served locally, no CDN):
+- **Comic Neue** (400, 700) — the "good Comic Sans", body text
+- **Patrick Hand** (400) — hand-drawn headings
+
+Both from Google Fonts, SIL Open Font License.
