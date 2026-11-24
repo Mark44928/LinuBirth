@@ -4,6 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LinuBirth — pretty useless countdown to Linus Torvalds' birthday</title>
+<meta name="description" content="The pretty useless countdown to Linus Torvalds' birthday (December 28). A tiny fan site with cool human-looking visuals, Tux penguins, and a confetti party on the big day.">
+<meta name="author" content="Mark44928">
+<meta name="theme-color" content="#a7f3d0">
+<link rel="canonical" href="https://mark44928.github.io/LinuBirth/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LinuBirth">
+<meta property="og:title" content="LinuBirth — countdown to Linus Torvalds' birthday">
+<meta property="og:description" content="The pretty useless countdown to Linus Torvalds' birthday (December 28). Tux penguins, cool visuals, and a confetti party on the big day.">
+<meta property="og:url" content="https://mark44928.github.io/LinuBirth/">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/6/69/Linus_Torvalds.jpeg">
+<meta property="og:image:alt" content="Linus Torvalds">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="LinuBirth — countdown to Linus Torvalds' birthday">
+<meta name="twitter:description" content="The pretty useless countdown to Linus Torvalds' birthday (December 28).">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/6/69/Linus_Torvalds.jpeg">
 <style>
   @font-face {
     font-family: 'Comic Neue';
@@ -145,6 +161,21 @@
   .tux:nth-child(3) { animation: drift 4.7s ease-in-out infinite; animation-delay: 2.1s; }
   .tux:nth-child(4) { animation: drift 6s ease-in-out infinite; animation-delay: 0.4s; }
   @keyframes drift { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-14px) rotate(4deg); } }
+  .share {
+    margin-top: 1rem;
+    font-family: 'Comic Neue', 'Comic Sans MS', system-ui, sans-serif;
+    font-size: 1rem;
+    cursor: pointer;
+    background: #ffab40;
+    color: #1b5e20;
+    border: 3px solid #1b5e20;
+    border-radius: 1rem;
+    padding: 0.5rem 1.1rem;
+    box-shadow: 2px 2px 0 #1b5e20;
+    transition: transform .15s ease;
+  }
+  .share:hover { transform: rotate(-2deg) scale(1.05); }
+  .share:active { transform: translateY(2px); box-shadow: none; }
   canvas#confetti { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 10; }
 </style>
 </head>
@@ -174,9 +205,8 @@
   <div class="penguins">
     <img class="tux" src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Tux">
     <img class="tux" src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Tux">
-    <img class="tux" src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Tux">
-    <img class="tux" src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Tux">
   </div>
+  <button class="share" id="share">Share this site</button>
   <p class="credit">Tux SVG: Larry Ewing &amp; The GIMP, via Wikimedia Commons (attribution only)</p>
 </main>
 <canvas id="confetti"></canvas>
@@ -191,6 +221,19 @@
     var canvas = document.getElementById('confetti');
     var ctx = canvas.getContext('2d');
     var particles = [];
+    var shareBtn = document.getElementById('share');
+
+    shareBtn.addEventListener('click', function () {
+      var data = { title: 'LinuBirth', text: 'The pretty useless countdown to Linus Torvalds\u2019 birthday.', url: location.href };
+      if (navigator.share) {
+        navigator.share(data).catch(function () {});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(data.url).then(function () {
+          shareBtn.textContent = 'Copied!';
+          setTimeout(function () { shareBtn.textContent = 'Share this site'; }, 1600);
+        });
+      }
+    });
 
     function targetDate () {
       var now = new Date();
