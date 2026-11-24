@@ -290,18 +290,30 @@
     function randomRange (a, b) { return Math.random() * (b - a) + a; }
 
     function burst () {
-      var cx = window.innerWidth / 2;
-      var cy = window.innerHeight / 3;
-      var colors = ['#1b5e20', '#ffab40', '#e53935', '#fff9c4', '#86efac'];
-      for (var i = 0; i < 120; i++) {
-        particles.push({
-          x: cx, y: cy,
-          vx: randomRange(-6, 6), vy: randomRange(-12, -2),
-          size: randomRange(3, 8),
-          color: colors[Math.floor(Math.random() * colors.length)],
-          life: 100
-        });
+      var colors = ['#1b5e20', '#ffab40', '#e53935', '#fff9c4', '#86efac', '#7BD88F', '#ff6b9d', '#4ecdc4', '#ffd93d', '#a78bfa'];
+      var shapes = ['rect', 'circle', 'triangle'];
+      function spray (cx, cy, count, spread) {
+        for (var i = 0; i < count; i++) {
+          var angle = randomRange(-Math.PI, 0);
+          var speed = randomRange(4, 14);
+          particles.push({
+            x: cx, y: cy,
+            vx: Math.cos(angle) * speed * spread + randomRange(-2, 2),
+            vy: Math.sin(angle) * speed,
+            size: randomRange(4, 10),
+            color: colors[Math.floor(Math.random() * colors.length)],
+            shape: shapes[Math.floor(Math.random() * shapes.length)],
+            rot: randomRange(0, Math.PI * 2),
+            rotSpeed: randomRange(-0.3, 0.3),
+            wobble: randomRange(0, Math.PI * 2),
+            wobbleSpeed: randomRange(0.05, 0.15),
+            life: randomRange(120, 200)
+          });
+        }
       }
+      spray(window.innerWidth / 2, window.innerHeight / 3, 90, 1);
+      spray(0, window.innerHeight, 45, 1.2);
+      spray(window.innerWidth, window.innerHeight, 45, 1.2);
     }
 
     function confetti () {
@@ -310,14 +322,35 @@
         var p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.vy += 0.22;
-        p.size *= 0.96;
+        p.vy += 0.18;
+        p.vx *= 0.99;
+        p.rot += p.rotSpeed;
+        p.wobble += p.wobbleSpeed;
+        p.vx += Math.sin(p.wobble) * 0.3;
         p.life--;
+        var alpha = Math.min(1, p.life / 40);
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
         ctx.fillStyle = p.color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, Math.max(0, p.size), 0, Math.PI * 2);
-        ctx.fill();
-        if (p.life <= 0 || p.size < 0.5) { particles.splice(i, 1); }
+        var s = p.size;
+        if (p.shape === 'rect') {
+          ctx.fillRect(-s / 2, -s / 4, s, s / 2);
+        } else if (p.shape === 'triangle') {
+          ctx.beginPath();
+          ctx.moveTo(0, -s / 2);
+          ctx.lineTo(-s / 2, s / 2);
+          ctx.lineTo(s / 2, s / 2);
+          ctx.closePath();
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          ctx.arc(0, 0, s / 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+        if (p.life <= 0 || p.y > canvas.height + 30) { particles.splice(i, 1); }
       }
       if (particles.length) { requestAnimationFrame(confetti); }
     }
