@@ -10,6 +10,32 @@
 
 The pretty useless countdown to Linus Torvalds' birthday (December 28). Cool human-looking visuals, a portrait of Linus, four drifting Tuxes, and a confetti party when the big day arrives.
 
+## CLI mode (runs in Termux / any terminal)
+
+No browser? No problem. The same countdown runs right in your terminal — Python 3 standard library only, no dependencies:
+
+```
+python3 linubirth.py            # live countdown, updates every second
+python3 linubirth.py --once     # print once and exit (scripts, pipes)
+python3 linubirth.py --no-color # no ANSI colors
+```
+
+```
+LinuBirth  —  countdown to Dec 28
+
+      .--.
+     |o_o |
+     |:_/ |
+    //   \ \
+   (|     | )
+  /'\_   _/`\
+  \___)=(___/
+
+ 32d  14h   1m  54s
+```
+
+On December 28 it flips to a "HAPPY BIRTHDAY LINUS!" banner.
+
 ## Share it
 
 Spread the word — the site has a built-in share button (Web Share API, with a copy-link fallback). Or share directly:
