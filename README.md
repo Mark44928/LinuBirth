@@ -72,3 +72,7 @@ Bundled in `assets/fonts/` (woff2, served locally, no CDN):
 - **Patrick Hand** (400) — hand-drawn headings
 
 Both from Google Fonts, SIL Open Font License.
+
+---
+
+**More projects:** [Mark44928's hub](https://mark44928.github.io/Mark44928/) — a family of dependency-free tools for Termux, Linux, and the terminal.
