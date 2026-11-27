@@ -10,6 +10,7 @@ Usage:
 
 import argparse
 import datetime
+import json
 import os
 import sys
 import time
@@ -91,7 +92,21 @@ def main():
     parser = argparse.ArgumentParser(description="Countdown to Linus Torvalds' birthday.")
     parser.add_argument("--once", action="store_true", help="print once and exit")
     parser.add_argument("--no-color", action="store_true", help="disable ANSI colors")
+    parser.add_argument("--json", action="store_true", help="print the countdown as JSON and exit")
     args = parser.parse_args()
+
+    if args.json:
+        now = datetime.datetime.now()
+        target = target_date()
+        diff = int((target - now).total_seconds())
+        days, rem = divmod(diff, 86400)
+        hours, rem = divmod(rem, 3600)
+        mins, secs = divmod(rem, 60)
+        print(json.dumps({
+            "target": target.strftime("%Y-%m-%d"),
+            "days": days, "hours": hours, "minutes": mins, "seconds": secs,
+        }))
+        return
 
     use_color = not args.no_color and sys.stdout.isatty()
 
