@@ -20,6 +20,8 @@ python3 linubirth.py --once     # print once and exit (scripts, pipes)
 python3 linubirth.py --no-color # no ANSI colors
 ```
 
+<img src="docs/screenshot-cli.png" width="640" alt="LinuBirth CLI screenshot">
+
 ```
 LinuBirth  —  countdown to Dec 28
 
