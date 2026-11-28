@@ -61,6 +61,7 @@ def progress_bar(now, target, width, use_color):
 def render(once, use_color):
     now = datetime.datetime.now()
     target = target_date()
+    is_birthday = now.month == 12 and now.day == 28
     diff = int((target - now).total_seconds())
 
     days, rem = divmod(diff, 86400)
@@ -76,7 +77,7 @@ def render(once, use_color):
         ]
     )
 
-    if diff <= 0:
+    if is_birthday or diff <= 0:
         banner = color("HAPPY BIRTHDAY LINUS!", "red", use_color)
         body = TUX
     else:
@@ -98,12 +99,17 @@ def main():
     if args.json:
         now = datetime.datetime.now()
         target = target_date()
-        diff = int((target - now).total_seconds())
-        days, rem = divmod(diff, 86400)
-        hours, rem = divmod(rem, 3600)
-        mins, secs = divmod(rem, 60)
+        is_birthday = now.month == 12 and now.day == 28
+        if is_birthday:
+            days = hours = mins = secs = 0
+        else:
+            diff = int((target - now).total_seconds())
+            days, rem = divmod(diff, 86400)
+            hours, rem = divmod(rem, 3600)
+            mins, secs = divmod(rem, 60)
         print(json.dumps({
             "target": target.strftime("%Y-%m-%d"),
+            "birthday": is_birthday,
             "days": days, "hours": hours, "minutes": mins, "seconds": secs,
         }))
         return
